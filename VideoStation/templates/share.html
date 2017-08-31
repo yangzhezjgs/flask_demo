@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block content %}
+ {% if session.logged_in %}
+
+	<form action="{{ url_for('add_entries') }}" method=post class=add-entry>
+	<form role="form">
+	<div class="modal-body">
+		<div class="form-group">
+			<label for="name">Title</label>
+			<input id="name" name="title" class="form-control"/>
+		</div>
+		<div class="form-group">
+			<label for="content">Text</label>
+			<textarea id="content" class="form-control" rows="3" name="text"></textarea>
+		</div>
+		<div class="modal-footer">
+			<button  class="btn btn-primary" type="submit" id="sub_btn">Share</button>
+		</div>
+	</div>
+ 	</form>
+
+	<div class="ylcon">
+		<div class="tit">
+			<div class = "aut_na">
+				<span >评论列表</span>
+			</div>
+			<div class="btn-group btn-group-xs edit_ri" role="group" aria-label="...">
+			</div>
+		</div>
+
+   		{% for entry in entries %}
+		<div id="messDivId">
+			<div class="story">
+				<div class="opbtn"></div>
+				<div class="m_top">
+					<div class = "aut_na">
+						<h4><strong>{{ entry.title }}</strong>&nbsp;&nbsp;&nbsp;</h4>
+					</div>
+					<div class="btn-group btn-group-xs edit_ri" role="group" aria-label="...">
+						<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span>&nbsp;回复</button>
+					</div>
+				</div>
+				
+				<p class="story_time">{{ entry.now }}<br/>by&nbsp;{{ entry.name }}</p>
+				<p class="story_m">{{ entry.text|safe }}</p>
+			</div>
+		{% else %}
+ 				<h1>empty</h1>
+    	{% endfor %}
+
+
+{% else %}
+ <div class="waring">
+ <h1>无权访问  请先登录</h1>
+ <h3> <a  href="{{ url_for('login') }}">返回登录</a></h3>
+</div>
+{% endif %}
+{% endblock %}
+

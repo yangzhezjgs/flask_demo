@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="{{ url_for('static', filename='css/bootstrap.css', _external=True )}}" rel="stylesheet">
+        <link href="{{ url_for('static', filename='css/style.css', _external=True )}}" rel="stylesheet">
+        <link href="{{ url_for('static', filename='css/video-js.css', _external=True )}}" rel="stylesheet">
+        {% block title %} <title>Video station</title> {% endblock %}
+    </head>
+
+    <body>
+        <div  class="container">
+            <!-- navbar -->
+            <nav class="navbar navbar-inverse container">
+            <div class="navbar-header"> <a class="navbar-brand" href="{{ url_for('show_video') }}">VIDEO</a><a class="navbar-brand" href="{{url_for('share')}}">share</a></div>
+
+            <!-- logout links -->
+            {% if "logged_in" in session %}
+            <ul class="nav navbar-nav pull-right">
+             <li><a class="btn navbar-brand" href="{{ url_for('logout') }}">logout</a></li>
+            </ul>
+            {% endif %}
+
+            {% if "user" in session and "logged_in" in session %}
+            <ul class="nav navbar-nav pull-right">
+             <li><a class="btn navbar-brand" > {{ user }}</a></li>
+            </ul>
+            {% endif %}
+
+            </nav>
+
+            <!-- body block -->
+            {% block content %}
+            {% endblock %}
+
+     </div>
+	 <div class="footer">
+		<p>Video Station</p>
+		<p>Designed By YZ &#169;2017</p>
+    </div>
+        <script src="{{ url_for('static', filename='js/jquery.js', _external=True )}}"></script>
+        <script src="{{ url_for('static', filename='js/bootstrap.js', _external=True )}}"></script>
+        <script src="{{ url_for('static', filename='js/video.min.js', _external=True )}}"></script>
+        <script src="{{ url_for('static', filename='js/myvideo.js', _external=True )}}"></script>
+        <script src="{{ url_for('static', filename='js/share.js', _external=True )}}"></script>
+    </body>
+</html>

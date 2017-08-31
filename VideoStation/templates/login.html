@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+		<div id='login_contain'>
+		<div class="index-tab ">
+			<div class="index-slide-nav">
+				<a id="denglu" href='#'class="active">登录</a>
+				<a id="zhuche" href='#' >注册</a>
+				<div class="slide-bar"></div>				
+			</div>
+		</div>
+        <form class="form-signin" role="form" method='POST' action="{{url_for('login') }}">
+
+		<div class="login form" id="login">
+			<div class="group">
+				<div class="group-ipt email">
+					<input type="text" name="username" id="email" class="ipt" placeholder="用户名">
+				</div>
+			<div class="group">
+				<div class="group-ipt password">
+					<input type="password" name="password" id="password" class="ipt" placeholder="密码" required>
+				</div>
+			</div>
+		</div>
+
+		<div class="button">
+			<button type="submit" class="login-btn register-btn" id="button">登录</button>
+		</div>
+		</div>
+	</form>
+
+        <form class="form-signin" role="form" method='POST' action="{{url_for('register') }}">
+		<div class="register form" id="register">
+			<div class="group">
+				<div class="group-ipt">
+					<input type="text" name="username" id="email" class="ipt" placeholder="用户名">
+				</div>
+			</div>
+			<div class="group">
+				<div class="group-ipt">
+					<input type="password" name="password" id="password" class="ipt" placeholder="密码" >
+				</div>
+			</div>
+			<div class="group">
+				<div class="group-ipt">
+					<input type="password" name="password2" id="password2" class="ipt" placeholder="重复密码" >
+				</div>
+		</div>
+
+		<div class="button">
+			<button type="submit" class="login-btn register-btn" id="button">注册</button>
+		</div>
+		</div>
+	</form>
+</div>
+{% endblock %}

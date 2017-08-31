@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content %}
+ <div class="waring">
+ <h1>注册成功!</h1>
+ <h1>hello, {{ user }}!</h1>
+ <h3> <a  href="{{ url_for('login') }}"> 返回登录</a></h3>
+</div>
+{% endblock %}

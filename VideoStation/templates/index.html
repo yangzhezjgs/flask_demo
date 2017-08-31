@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+<div id = "maincontainer">
+<div class="container" >
+    <div class="starter">
+        <h1>金沙港生活区介绍</h1>
+        <p class="lead">Hello,{{user}}</p>
+    </div>
+    <div class="container">
+    <div class="row">
+        <div class="col-xs-2">
+            <ul class="list-group">
+            <button type="button" class="btn btn-info btn-lg btn-block" id = "video1">清风一楼</button>
+            <button type="button" class="btn btn-info btn-lg btn-block" id = "video2">清风二楼</button>
+            <button type="button" class="btn btn-info btn-lg btn-block" id = "video3">宝龙二期</button>
+            <button type="button" class="btn btn-info btn-lg btn-block" id = "video4">永辉超市</button>
+            <button type="button" class="btn btn-info btn-lg btn-block" id = "video5">优雅风光</button>
+        </ul>
+        </div>
+        <div class="col-xs-7">
+        <video id="my-video" class="video-js" controls preload="auto" width="640" height="464"
+          data-setup="{}">
+            <source src="static/video/video1.mp4" type="video/mp4">
+        </video>
+        </div>
+        <div class="col-xs-3" >
+        <div class="panel  panel-info" >
+            <div class="panel-heading" >
+            <h3 class="panel-title" id = "json1">清风食堂一楼</h3>
+            </div>
+        <div class="panel-body" id = "json2">
+        物美价廉，品类丰富，支持校园卡和支付宝支付
+        </div>
+        </div>
+        </div>
+    </div>  
+    </div> 
+</div>
+</div>
+</div>
+
+{% endblock %}
