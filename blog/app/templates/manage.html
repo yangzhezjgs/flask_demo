@@ -1,0 +1,14 @@
+<table class="table table-hover">
+<tr>
+	<td>
+		<p>{{ post.username }}</p>{{ post.time }}<p>publish:</p><p><strong>{{ post.title }}</strong></p>
+	</td>
+	<td>
+		<form action="{{ url_for('delete',post_id = post.id) }}" method="POST" >
+		<input class="btn" type="submit" value="delete" >
+		</form>
+		<a class="btn" href="{{ url_for('editpost',post_id = post.id) }}" type="submit" value="edit">edit</a>
+	</td>
+</tr>
+</table>
+

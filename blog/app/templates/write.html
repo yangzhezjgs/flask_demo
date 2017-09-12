@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<form  class="form-horizontal" action="" method="POST">
+	{{form.hidden_tag()}}
+	<div class="control-group">
+    <label for="title" class="control-label">Title:</label>
+		<div class="controls">
+			{{ form.title(maxlength = 64, class = "span5") }}
+		</div>
+	</div>
+	<div class="control-group">
+   	 <label for="content" class="control-label">Content:</label>
+		<div class="controls">
+			{{ form.content(cols = 90, rows = 9, class = "span5") }}
+		</div>
+	</div>
+	<div class="control-group">
+	<div class="controls">
+	<input class="btn btn-primary" type="submit" value="Post">
+	</div>
+	</div>
+</form>
+{% endblock %}
+

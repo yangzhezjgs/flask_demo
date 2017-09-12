@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+{% include 'flash.html' %}
+<h1>Sign Up</h1>
+<form action="/sign-up" method="post" name="sign_up">
+	{{ form.hidden_tag() }}
+	<p>name:</p><p> {{ form.username }}</p>
+	<p>password: </p><p>{{ form.password }}</p>
+	<p>{{ form.submit }}</p>
+</form>
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="leaderboard well">
+	<h1>{{g.user.username}},welcome to blog!</h1>
+</div>
+{% include 'flash.html' %}
+{% for post in posts.items %}
+<h2 class="post-title">
+	<a href="{{ url_for('detail',index=post.id)}}">{{ post.title }}</a>
+</h2>
+<p class="post-meta">
+   <p><strong> {{ post.time}}</strong></p>
+</p>
+<div class="post-description">
+<p>
+     {{ post.content| truncate(10,True) }}
+</p>
+</div>
+<a href="{{ url_for('detail',index=post.id)}}" class="pure-button">Read More >>> </a>
+<hr>
+{% endfor %}
+<ul class="pager">
+   {% if posts.has_prev %}
+   	 <li class="previous"><a href="{{ url_for('index', page = posts.prev_num) }}">Newer posts</a></li>
+    {% else %}
+    	<li class="previous disabled"><a href="#">Newer posts</a></li>
+    {% endif %}
+    {% if posts.has_next %}
+    	<li class="next"><a href="{{ url_for('index', page = posts.next_num) }}">Older posts</a></li>
+    {% else %}
+    	<li class="next disabled"><a href="#">Older posts</a></li>
+    {% endif %}
+</ul>
+{% endblock %}
