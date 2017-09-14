@@ -24,8 +24,8 @@ boostrap + flask + sqlalchemy + sqlite3</br>
 </br>
 ## todolist_vuejs</br>
 使用vuejs,axios,flask,sqlalchemy,sqlite3(一个简单的单文件数据库)构建的一个TODOlist应用，练习前后端交互和增删查改.</br>
-http://blog.csdn.net/yz764127031/article/details/77954677
+http://blog.csdn.net/yz764127031/article/details/77954677</br>
 </br>
-—–9.14更新 
-(1)修正点击delete会出错的bug 
-(2)添加了表单验证功能，表单为空的情况下无法提交并有错误提示。
+—–9.14更新 </br>
+(1)修正点击delete会出错的bug </br>
+(2)添加了表单验证功能，表单为空的情况下无法提交并有错误提示。</br>
