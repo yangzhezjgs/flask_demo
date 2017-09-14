@@ -2,27 +2,63 @@
     <div id="app" class="app">
         <h1 v-text='title'></h1>
         <p class='typeInput'>
-            <input type="text" v-model='newText' v-on:keyup.enter='addNewlist'>
-        </p>
+        <input type="text" v-model='newText' v-on:keyup.enter='addNewlist' >
+	<div :class="['form-group', {'has-error': errors.has('text')}]">
+	    <span class="help-block" style="color:red"  v-text="errors.get('text')"></span> 
+        </div>
+	</p>
         <ul>
-            <li v-for='item in items' v-bind:class='{finished:item.isFinished}' v-on:click='toggleFinish(item)'>{{item.text}}&nbsp&nbsp&nbsp<input v-on:click="delItem(item)" type="submit" value="delete"></li>
+            <li v-for='item in items'><p v-bind:class='{finished:item.isFinished}' v-on:click='toggleFinish(item)' style='display:inline'>{{item.text}}</p>
+	<input v-on:click="delItem(item)" type="submit" value="delete"></li>
         </ul>
     </div>
 </template>
 
 <script>
 var axios = require('axios');
+
+class Errors {
+  constructor() {
+    this.errors = { }
+  }
+
+  has(field) {
+    return this.errors.hasOwnProperty(field)
+  }
+
+  any() {
+    return Object.keys(this.errors).length > 0
+  }
+
+  get(field) {
+    if (this.errors[field]) {
+      return this.errors[field][0]
+    }
+  }
+
+  record(errors) {
+    this.errors = errors
+  }
+
+  clear(field) {
+    delete this.errors[field]  
+}
+}
+
+
 export default {
   name: 'app',
   data () {
     return {
       title:'todo list',
       items:[],
-      newText:''
+      newText:'',
+      errors: new Errors()
     }
   },
    methods:{
        toggleFinish:function(item){
+	console.log('1');
          axios.post('/api/update',{'text':item.text,'isFinished':item.isFinished}).then(response => {
 		if(response.data.ok){
                     item.isFinished=!item.isFinished;
@@ -37,8 +73,9 @@ export default {
                             isFinished:false
                         })
                    this.newText='';
+		   this.errors.clear('text')
 		}
-             })
+             }).catch(error => this.errors.record(error.response.data.errors))
 	},
 	delItem:function(item){
          axios.post('/api/delete',{'text':item.text,'isFinished':item.isFinished})
@@ -66,7 +103,6 @@ export default {
         }
         #app{
             text-align: center;
-            color: #2c3e50;
         }
         .app{
             width: 90%;
@@ -74,7 +110,7 @@ export default {
             padding: 5%;
             margin-top: 10px;
         }
-        .app li.finished{
+        .app li p.finished{
             text-decoration: line-through;
         }    
         .typeInput input{
