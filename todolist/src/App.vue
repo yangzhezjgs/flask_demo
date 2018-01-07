@@ -8,8 +8,10 @@
         </div>
 	</p>
         <ul>
-            <li v-for='item in items'><p v-bind:class='{finished:item.isFinished}' v-on:click='toggleFinish(item)' style='display:inline'>{{item.text}}</p>
-	<input v-on:click="delItem(item)" type="submit" value="delete"></li>
+            <li v-for='item in items'>
+		<p v-bind:class='{finished:item.isFinished}' v-on:click='toggleFinish(item)' style='display:inline'>{{item.text}}</p>
+  	    	<a v-on:click="delItem(item)">delete</a>
+	   </li>
         </ul>
     </div>
 </template>
@@ -58,17 +60,17 @@ export default {
   },
    methods:{
        toggleFinish:function(item){
-	console.log('1');
-         axios.post('/api/update',{'text':item.text,'isFinished':item.isFinished}).then(response => {
+         axios.put('/api/item',{'id':item.id}).then(response => {
 		if(response.data.ok){
                     item.isFinished=!item.isFinished;
 		}})
                 },
        addNewlist:function(){
-         axios.post('/api/insert',{'text':this.newText,'isFinished':false})
+         axios.post('/api/item',{'text':this.newText,'isFinished':false})
 		.then(response => {
 		if(response.data.ok){
 		 this.items.push({
+			    id:response.data.id,
                             text:this.newText,
                             isFinished:false
                         })
@@ -78,7 +80,14 @@ export default {
              }).catch(error => this.errors.record(error.response.data.errors))
 	},
 	delItem:function(item){
-         axios.post('/api/delete',{'text':item.text,'isFinished':item.isFinished})
+         axios({
+		url: '/api/item',
+		method: 'delete',
+		data: {
+			'id':item.id,
+			}
+		}
+		)
 		.then(response => {
 		if(response.data.ok){
 		 var index = this.items.indexOf(item);
@@ -88,7 +97,7 @@ export default {
 },
 
    mounted(){
-	axios.get('/api/get',{
+	axios.get('/api/item',{
 	}).then(response =>this.items = response.data)}
 	
 	
